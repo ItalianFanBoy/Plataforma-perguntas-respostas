@@ -52,21 +52,12 @@ app.post("/salvarpergunta",(req, res) =>{
 app.get("/pergunta/:id",(req, res) =>{
     var id = req.params.id;
     Pergunta.findOne({
-        where:{id: id},
-    
+        where:{id: id}
     }).then(pergunta =>{
         if(pergunta != undefined){
-
-            Resposta.findAll({
-                where: {perguntaId : pergunta.id},
-                order:[ ['id', 'DESC'] ]
-
-            }).then(respostas => {
-                res.render("pergunta",{
-                    pergunta : pergunta,
-                    respostas: respostas
-            });          
-         });
+            res.render("pergunta",{
+                pergunta : pergunta
+            });
         }else{
             res.redirect("/")
         }
